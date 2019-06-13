@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+ <body>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script type=text/javascript> setInterval(function() {
+ $.ajax({
+  type: "GET",
+  url: "/json",
+ })
+  .done(function( data ) {
+
+    for (item in data) {
+
+
+  for (subItem in data[item]) {
+     console.log(data[item][subItem].id);
+     console.log(data[item][subItem].name);
+  }
+}
+
+
+    var tableHtml = '';
+    for (row in data) {
+        tableHtml += '<td>' + row + '</td>';
+      tableHtml += '</tr>';
+    }
+    $("#table-box").html(tableHtml)
+   }).fail(function(jqXHR, textStatus, errorThrown) {
+     console.log(jqXHR, textStatus, errorThrown);
+   });
+  }, 1000);
+  </script>
+<table border="2" cellpadding="4" cellspacing="5" id="table-box" >
+{% for row in data %}
+    <tr>
+    {% for d in row %}
+        <td>{{ d }}</td>
+    {% endfor %}
+    </tr>
+{% endfor %}
+</table>
+
+ <p id=result> </p>
+ </body>
+</html>

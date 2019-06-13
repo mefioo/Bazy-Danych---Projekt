@@ -1,0 +1,42 @@
+{%extends "header.html" %}
+
+
+{%block content%}
+<body class="body">
+	  <div class="container">
+		{% for d in data %}
+			<p>{{d}}</p>
+		{% endfor %}
+		<hr>
+		{% if data[1]|int > 10%}
+			<p>True!</p>
+		{% endif %}
+		<hr>
+		<p>{{data[2]|replace('good','FREAKIN AWESOME!')}}</p>
+		<hr>
+		{% for lang in data[3].split(',') %}
+			<p>{{lang}}</p>
+		{% endfor %}
+		<hr>
+		{{data[4]|safe}}
+
+          		{% macro input(name, value='', type='text', size=20) -%}
+			<input type="{{ type }}" name="{{ name }}" value="{{
+				value|e }}" size="{{ size }}">
+		{%- endmacro %}
+
+		The macro can then be called like a function in the namespace:
+
+            <p>{{ input('username') }}</p>
+		    <p>{{ input('password', type='password') }}</p>
+
+	  </div>
+
+
+
+
+
+
+      </body>
+
+{%endblock%}

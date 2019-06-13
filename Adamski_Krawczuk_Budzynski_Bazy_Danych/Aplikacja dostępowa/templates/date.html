@@ -1,0 +1,47 @@
+{% extends "header.html" %}
+{% block content %}
+	<head>
+<script src="includes/jquery-3.3.1.min.js"></script>
+  <script type=text/javascript>
+
+function update_values() {
+            $.getJSON('/__get_date__/',
+                function(data) {
+                    $("#cpuload").text(data.date);
+                });
+        }
+    setInterval(update_values, 1000)
+
+  </script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script type=text/javascript>
+    function whatTimeIsIt (){
+        $.getJSON('/__get_date__/',
+            function(data) {
+                $("#result").text(data.date);
+    });
+ }
+
+    setInterval(whatTimeIsIt, 1000);
+  </script>
+	</head>
+
+	<body>
+		<p id=cpuload></p>
+        <p id=result></p>
+    	<p id=disk></p>
+	</body>
+{%endblock%}
+
+
+
+
+
+
+
+
+
+
+

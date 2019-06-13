@@ -1,0 +1,48 @@
+{%extends "header.html" %}
+
+
+{%block content%}
+
+
+
+<body>
+	<div class = "container">
+		<h4>Usuń wykonywana aktywność</h4>
+		<br>
+		{% from "_formhelpers.html" import render_field %}
+		<form method=post action="/removeactivity/">
+			<d1>
+			<div class="form-group">
+								 <select name="name" class = "form-control" style="width: auto">
+      {% for activity in my_list %}
+          <option value="{{ activity }}">{{ activity }}</option>
+      {% endfor %}
+    	</select>
+
+				</label>
+			</div>
+			</d1>
+				<p>
+				<button type="submit" class="btn btn-danger">Submit</button>
+			</p>
+		</form>
+
+{% if form.errors %}
+    <ul class="errors">
+        {% for field_name, field_errors in form.errors|dictsort if field_errors %}
+            {% for error in field_errors %}
+                <li>{{ form[field_name].label }}: {{ error }}</li>
+            {% endfor %}
+        {% endfor %}
+    </ul>
+{% endif %}
+
+	</div>
+
+
+
+
+
+</body>
+
+{%endblock%}

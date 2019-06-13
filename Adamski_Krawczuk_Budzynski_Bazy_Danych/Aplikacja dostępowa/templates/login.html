@@ -1,0 +1,36 @@
+{%extends "header.html" %}
+
+{%block content%}
+
+		{% macro input(name, value, placeholder=name, type='text', size=20) -%}
+			<input type="{{type}}" class="form-control" placeholder = "{{placeholder}}" name="username" value="{{value}}">
+		{%- endmacro %}
+
+
+	<div class="container">
+		<br>
+		<h4>Please Login:</h4>
+		<br>
+		<form action="http://127.0.0.1:5000/login/" class="form-inline" method="post">
+			<!--<input type="text" class="form-control" placeholder = "Username" name="username" value="{{request.form.username}}">-->
+			{{ input('username', request.form.username, 'Username') }}
+			<input type="password" class="form-control" placeholder = "Password" name="password" value="{{request.form.password}}">
+			<!--{{ input('password', request.form.password, 'Password', type='password') }}-->
+			<input class="btn btn-default" type="submit" value="Login">
+		</form>
+	</div>
+
+	<div class="Error">
+		{{error}}
+	</div>
+
+
+
+
+
+
+            <!--<p>{{ input('username', request.form.username,  'Username', ) }}</p>-->
+		    <!--<p>{{ input('password', request.form.password, 'Password', type='password',) }}</p>-->
+
+
+{%endblock%}

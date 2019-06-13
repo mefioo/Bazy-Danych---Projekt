@@ -1,0 +1,158 @@
+{%extends "header.html" %}
+
+
+{%block content%}
+
+
+  <script
+  src="https://code.jquery.com/jquery-2.2.4.min.js"
+  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+  crossorigin="anonymous"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.css">
+  <script type='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.js"></script>
+  <style type='text/css'>
+    .row-index {
+      width: 50px;
+      display: inline-block;
+    }
+  </style>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script type='text/javascript'>
+  $.noConflict();
+    function getData(elementId,db_name){
+        jQuery.getJSON('/hard/'+db_name,
+      function(json) {
+        $(elementId).bootstrapTable({
+          data: json.date,
+          columns: json.col,
+        });
+      });
+    }
+
+  function getNewData(elementId,db_name){
+        jQuery.getJSON('/hard'+db_name,
+      function(json) {
+        $(elementId).bootstrapTable('load', {
+          data: json.date,
+          columns: json.col,
+        });
+      });
+    }
+
+    // $.when($.when(getData("#aktywnosci","konta")).done((getData("#posilki","produkty")))).done(getData("#products","posilki"));
+    // getData("#aktywnosci","aktywnosci")
+  </script>
+
+
+<body>
+	<div class = "container">
+		<h4>Dodaj aktywność</h4>
+		<br>
+		{% from "_formhelpers.html" import render_field %}
+		<form method=post action="/new_act/">
+			<d1>
+
+			<div class="activity-group">
+					<input type="text" class="form-control" style="width: 200px;" placeholder = "Nazwa aktywnosci" name="name">
+				</label>
+			</div>
+
+
+			<div class="activity-group">
+					<input type="number" class="form-control" style="width: 200px;" placeholder = "Liczba godzin" name="hours" value="{{activity.hours}}
+				</label>
+			</div>
+
+			</d1>
+				<p>
+				<button type="submit" class="btn btn-success">Submit</button>
+			</p>
+		</form>
+    </div>
+
+	<div class = "container">
+		<h4>Zmień uprawnienia</h4>
+		<br>
+		{% from "_formhelpers.html" import render_field %}
+		<form method=post action="/new_permission/">
+			<d1>
+
+			<div class="permission-group">
+					<input type="text" class="form-control" style="width: 200px;" placeholder = "Login" name="login">
+				</label>
+			</div>
+
+
+			<div class="activity-group">
+					<input type="number" class="form-control" style="width: 200px;" placeholder = "Premission" name="permission_level" value="{{permission.permission_level}}
+				</label>
+			</div>
+
+			</d1>
+				<p>
+				<button type="submit" class="btn btn-success">Submit</button>
+			</p>
+		</form>
+		 <label>
+  	</label>
+	</div>
+<!--{% if form.errors %}-->
+    <!--<ul class="errors">-->
+        <!--{% for field_name, field_errors in form.errors|dictsort if field_errors %}-->
+            <!--{% for error in field_errors %}-->
+                <!--<li>{{ form[field_name].label }}: {{ error }}</li>-->
+            <!--{% endfor %}-->
+        <!--{% endfor %}-->
+    <!--</ul>-->
+<!--{% endif %}-->
+	<div class = "container">
+		<h4>Usuń konto/zmień hasło</h4>
+		<br>
+		{% from "_formhelpers.html" import render_field %}
+		<form method=post action="/manage_account/">
+			<d1>
+
+			<div class="permission-group">
+					<input type="text" class="form-control" style="width: 200px;" placeholder = "Login" name="login">
+				</label>
+			</div>
+
+
+			<div class="activity-group">
+					<input type="text" class="form-control" style="width: 200px;" placeholder = "password" name="password">
+				</label>
+			</div>
+
+			</d1>
+				<p>
+				<button type="submit" class="btn btn-success">Submit</button>
+			</p>
+		</form>
+		 <label>
+  	</label>
+	</div> </div>
+
+
+
+<div class="container">
+  <h2>  Użytkownicy</h2>
+  <ul class="nav nav-pills">
+    <li><a data-toggle="pill" onclick="getData('#konta','konta');" href="#menu1">Konta</a></li>
+  </ul>
+
+  <div class="tab-content">
+    <div id="Produkty" class="tab-pane fade in active">
+       <table
+      id="konta"
+      data-toggle="true"
+      data-toolbar="#toolbar"
+      data-search="true"
+      data-show-columns="true"
+      data-pagination="true"
+      data-height="500">
+       </table>
+
+
+</body>
+
+{%endblock%}
